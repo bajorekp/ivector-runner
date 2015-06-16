@@ -11,18 +11,25 @@ namespace Ivector_extractor
         static void Main(string[] args)
         {
             agh.IvectorExtractorWrapper ie = new agh.IvectorExtractorWrapper();
-            
-            String fp = "1.wav";
-            String outfp = fp + "ivecs";
 
-            Console.Write("\n . Extraction from " + fp + "...");
-            if (ie.Extract(fp, outfp))
+            List<string> filenames = new List<string>(args);;
+            if (args.Length == 0)
             {
-                Console.Write("Done.");
+                filenames.Add("1.wav");
             }
-            else
-                Console.Write("FAILED!");
-                
+
+            for (int i = 0; i < filenames.Count; i++)
+            {
+                string fp = filenames[i];
+                string outfp = fp + "ivecs";
+                Console.Write((i+1).ToString() + ". Extraction from " + fp + "...");
+                if (ie.Extract(fp, outfp))
+                {
+                    Console.Write("Done. Result saved into " + outfp + "\n");
+                }
+                else
+                    Console.Write("FAILED!\n");
+            }   
         }
     }
 }
